@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杨哲熠 - 个人简历</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #fafafa;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2c3e50;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #7f8c8d;
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #2c3e50;
+        }
+
+        /* 语言切换按钮 */
+        .lang-switch {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 0.25rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .lang-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            background: transparent;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #7f8c8d;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: #2c3e50;
+        }
+
+        /* 隐藏非当前语言的内容 */
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        /* 个人信息头部 */
+        .profile-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            border: 3px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .profile-title {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .profile-location {
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        /* 内容区域 */
+        .content {
+            padding: 2.5rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ecf0f1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        /* 联系信息 */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #3498db;
+        }
+
+        .contact-item .icon {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .contact-item a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* 经历项目通用样式 */
+        .experience-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #3498db;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .experience-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.25rem;
+        }
+
+        .experience-company {
+            font-size: 1rem;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .experience-position {
+            font-size: 0.9rem;
+            color: #95a5a6;
+            font-style: italic;
+            margin-top: 0.25rem;
+        }
+
+        .experience-date {
+            font-size: 0.9rem;
+            color: #95a5a6;
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .experience-description {
+            color: #5a6c7d;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .experience-description ul {
+            margin-left: 1rem;
+        }
+
+        .experience-description li {
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-description strong {
+            color: #2c3e50;
+        }
+
+        /* 科研项目特殊样式 */
+        .research-item {
+            border-left-color: #e74c3c;
+        }
+
+        /* 项目经历特殊样式 */
+        .project-item {
+            border-left-color: #f39c12;
+        }
+
+        /* 工作经历特殊样式 */
+        .work-item {
+            border-left-color: #27ae60;
+        }
+
+        /* 在校经历特殊样式 */
+        .school-item {
+            border-left-color: #9b59b6;
+        }
+
+        /* 奖项列表 */
+        .awards-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .award-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #e74c3c;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .award-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .award-title {
+            font-weight: 600;
+            color: #2c3e50;
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .award-date {
+            color: #7f8c8d;
+            font-weight: 500;
+            background: #ecf0f1;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+
+        /* 技能标签 */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 1.25rem;
+            border-radius: 6px;
+            border-left: 3px solid #3498db;
+        }
+
+        .skill-category-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: #3498db;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* 语言和证书 */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #16a085;
+        }
+
+        .info-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .info-level {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* 下载按钮 */
+        .download-section {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background: #34495e;
+            transform: translateY(-1px);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .container {
+                margin: 1rem;
+                border-radius: 6px;
+            }
+
+            .profile-header {
+                padding: 2rem 1rem;
+            }
+
+            .profile-name {
+                font-size: 2rem;
+            }
+
+            .content {
+                padding: 2rem 1rem;
+            }
+
+            .contact-grid,
+            .skills-container,
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .experience-date {
+                text-align: left;
+                margin-top: 0.5rem;
+            }
+
+            .award-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="lang-content zh active">杨哲熠</span>
+                <span class="lang-content en">Yang Zheyi</span>
+            </div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html">
+                        <span class="lang-content zh active">首页</span>
+                        <span class="lang-content en">Home</span>
+                    </a></li>
+                    <li><a href="resume.html" class="active">
+                        <span class="lang-content zh active">简历</span>
+                        <span class="lang-content en">Resume</span>
+                    </a></li>
+                </ul>
+                <div class="lang-switch">
+                    <button class="lang-btn active" onclick="switchLanguage('zh')">中文</button>
+                    <button class="lang-btn" onclick="switchLanguage('en')">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 个人信息头部 -->
+        <div class="profile-header">
+            <div class="profile-photo">📷</div>
+            <h1 class="profile-name">
+                <span class="lang-content zh active">杨哲熠</span>
+                <span class="lang-content en">Yang Zheyi</span>
+            </h1>
+            <div class="profile-title">
+                <span class="lang-content zh active">YANG ZHEYI</span>
+                <span class="lang-content en">YANG ZHEYI</span>
+            </div>
+            <div class="profile-location">
+                <span class="lang-content zh active">中国香港特别行政区</span>
+                <span class="lang-content en">Hong Kong S.A.R.</span>
+            </div>
+        </div>
+
+        <!-- 内容区域 -->
+        <div class="content">
+            <!-- 联系信息 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="lang-content zh active">📧 联系方式</span>
+                    <span class="lang-content en">📧 Contact Information</span>
+                </h2>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <span class="icon">📞</span>
+                        <span>CN: (86) 18030409037</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="icon">📞</span>
+                        <span>HK: (852) 59575763</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="icon">📧</span>
+                        <span>zheyi@connect.hku.hk</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="icon">🔗</span>
+                        <span><a href="https://www.behance.net/zrim_young" target="_blank">
+                            <span class="lang-content zh active">Behance作品集</span>
+                            <span class="lang-content en">Behance Portfolio</span>
+                        </a></span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="icon">📚</span>
+                        <span><a href="https://issuu.com/zrim/docs/stories_of_spaces" target="_blank">
+                            <span class="lang-content zh active">作品文档</span>
+                            <span class="lang-content en">Portfolio Document</span>
+                        </a></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 教育背景 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="lang-content zh active">🎓 教育背景</span>
+                    <span class="lang-content en">🎓 Education</span>
+                </h2>
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">
+                                <span class="lang-content zh active">城市设计硕士</span>
+                                <span class="lang-content en">Master of Urban Design</span>
+                            </div>
+                            <div class="experience-company">
+                                <span class="lang-content zh active">香港大学 - 建筑学院 | 城市规划与设计系</span>
+                                <span class="lang-content en">The University of Hong Kong (HKU) - Faculty of Architecture</span>
+                            </div>
+                            <div class="experience-position">GPA：3.74/4.3</div>
+                        </div>
+                        <div class="experience-date">2024.09 - 2025.10</div>
+                    </div>
+                    <div class="experience-description">
+                        <span class="lang-content zh active">专注于城市设计理论与实践，研究城市空间规划与可持续发展。参与多项城市设计竞赛并获奖。</span>
+                        <span class="lang-content en">Focused on urban design theory and practice, researching urban spatial planning and sustainable development. Participated in multiple urban design competitions and won awards.</span>
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">
+                                <span class="lang-content zh active">建筑学学士</span>
+                                <span class="lang-content en">Bachelor of Architecture</span>
+                            </div>
+                            <div class="experience-company">
+                                <span class="lang-content zh active">四川大学 - 建筑与环境学院 | 建筑系</span>
+                                <span class="lang-content en">Sichuan University (SCU) - College of Architecture and Environment</span>
+                            </div>
+                            <div class="experience-position">GPA：3.76/4.0 (3/78)</div>
+                        </div>
+                        <div class="experience-date">2019.09 - 2024.06</div>
+                    </div>
+                    <div class="experience-description">
+                        <div class="lang-content zh active">
+                            <ul>
+                                <li><strong>奖项：</strong>国家奖学金（2021），四川大学二等、三等奖学金，优秀毕业设计</li>
+                                <li><strong>荣誉：</strong>十佳新媒体编辑、四川大学优秀学生</li>
+                                <li><strong>交流：</strong>前往<strong>香港理工大学</strong>暑期项目（2022）交换学习，GPA 4.0/4.3</li>
+                            </ul>
+                        </div>
+                        <div class="lang-content en">
+                            <ul>
+                                <li><strong>Awards:</strong> National Scholarship (2021); Second & Third-Class Scholarships (University); Outstanding Graduation Design</li>
+                                <li><strong>Honors:</strong> Top 10 New Media Editor; Outstanding Student, Sichuan University</li>
+                                <li><strong>Exchange:</strong> Summer program at <strong>The Hong Kong Polytechnic University</strong> (2022), GPA 4.0/4.3</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 科研项目 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="lang-content zh active">🔬 科研项目</span>
+                    <span class="lang-content en">🔬 Academic Research</span>
+                </h2>
+                <div class="experience-item research-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">
+                                <span class="lang-content zh active">马德里市中心交通事故与街道景观感知建成环境关联分析</span>
+                                <span class="lang-content en">Analyzing the Impact of Streetscape Perception and Built Environment on Traffic Accidents in Central Madrid</span>
+                            </div>
+                            <div class="experience-company">
+                                <span class="lang-content zh active">香港大学</span>
+                                <span class="lang-content en">HKU, HK</span>
+                            </div>
+                            <div class="experience-position">
+                                <span class="lang-content zh active">核心成员</span>
+                                <span class="lang-content en">Core Member</span>
+                            </div>
+                        </div>
+                        <div class="experience-date">
+                            <span class="lang-content zh active">2025.03 - 2025.04</span>
+                            <span class="lang-content en">2025.02 - 2025.04</span>
+                        </div>
+                    </div>
+                    <div class="experience-description">
+                        <div class="lang-content zh active">
+                            <ul>
+                                <li><strong>图像识别</strong>：基于 Google 街景图像与 <strong>Mask2Former 深度学习模型</strong>，提取多种街道视觉要素。</li>
+                                <li><strong>空间建模</strong>：结合<strong>空间句法（sDNA）指标</strong>与<strong> POI 分布</strong>，刻画道路连通性与街道功能特征。</li>
+                                <li><strong>多元建模</strong>：构建<strong> Logistic 回归</strong>与 <strong>ZINB 模型</strong>，量化建成环境与街景感知对事故发生率的影响。</li>
+                                <li><strong>风险发现</strong>：识别出与事故发生显著相关的城市环境特征，为城市规划提供定量支持。</li>
+                            </ul>
+                        </div>
+                        <div class="lang-content en">
+                            <ul>
+                                <li><strong>Streetscape Analysis:</strong> Applied <strong>Mask2Former</strong> to <strong>Google Street View</strong> images for visual calculation.</li>
+                                <li><strong>Spatial Analysis:</strong> Modeled <strong>road connectivity</strong> and <strong>street functions</strong> using <strong>sDNA metrics</strong> and <strong>POI data</strong>.</li>
+                                <li><strong>Statistical Modeling:</strong> Built <strong>logistic</strong> and <strong>ZINB models</strong> to assess environmental and perceptual factors in accident occurrence.</li>
+                                <li><strong>Urban Risk Insights:</strong> Identified key urban risk factors to support data-driven planning decisions.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="experience-item research-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">
+                                <span class="lang-content zh active">基于多期DID模型评估马德里ZBE政策对事故率的影响</span>
+                                <span class="lang-content en">Multi-period DID analysis on traffic crash reduction in Madrid's ZBE programs</span>
+                            </div>
+                            <div class="experience-company">
+                                <span class="lang-content zh active">香港大学</span>
+                                <span class="lang-content en">HKU, HK</span>
+                            </div>
+                            <div class="experience-position">
+                                <span class="lang-content zh active">核心成员</span>
+                                <span class="lang-content en">Core Member</span>
+                            </div>
+                        </div>
+                        <div class="experience-date">2024.10 - 2025.04</div>
+                    </div>
+                    <div class="experience-description">
+                        <div class="lang-content zh active">
+                            <ul>
+                                <li><strong>因果评估</strong>：聚焦2018与2022年ZBE限行政策，采用<strong>多期DID模型</strong>量化交通安全改善成效。</li>
+                                <li><strong>数据整合</strong>：基于<strong>Python、GIS与Google Maps API</strong>清洗近<strong>3万条</strong>事故数据并完成地理匹配。</li>
+                                <li><strong>模型建构</strong>：完成<strong>DID回归建模</strong>、<strong>平行趋势检验与滞后效应分析</strong>，检验政策影响的时间稳定性。</li>
+                                <li><strong>政策启示</strong>：发现政策实施与建成环境因子对事故率具显著影响，为城市交通治理提供量化依据。</li>
+                            </ul>
+                        </div>
+                        <div class="lang-content en">
+                            <ul>
+                                <li><strong>Causal Inference:</strong> Assessed <strong>ZBE policies</strong> using <strong>multi-period DiD</strong> to quantify effects on accident.</li>
+                                <li><strong>Data Processing:</strong> Cleaned and geocoded <strong>30,000+ data</strong> using <strong>Python</strong>, <strong>GIS</strong>, and <strong>Google Maps API</strong>.</li>
+                                <li><strong>Modeling & Analysis:</strong> Performed regressions, parallel tests, and lag analyses with <strong>Python</strong> scripts.</li>
+                                <li><strong>Planning Insights:</strong> Revealed links between policy, built environment, and crash risk to inform urban transport planning.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 项目经历 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="lang-content zh active">💼 项目经历</span>
+                    <span class="lang-content en">💼 Project Experience</span>
+                </h2>
+                <div class="experience-item project-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">阅芽：智能口腔健康管理系统领跑者</div>
+                            <div class="experience-company">第九届四川大学"互联网+"三等奖</div>
+                            <div class="experience-position">核心成员 | 品牌视觉与运营</div>
+                        </div>
+                        <div class="experience-date">2023.04 - 2023.08</div>
+                    </div>
+                    <div class="experience-description">
+                        <ul>
+                            <li>主导AI诊断报告系统<strong>平面设计</strong>，开发标准化影像分析模板，成果<strong>落地华西口腔医院</strong>；</li>
+                            <li>构建项目<strong>品牌视觉体系</strong>，服务覆盖口腔专科联盟10+合作机构；</li>
+                            <li>参与制定线上线下一体化<strong>推广策略</strong>，通过多渠道提升品牌影响力</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="experience-item project-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">UEFI卫士：基于机器学习的计算机主板芯片安全检测平台</div>
+                            <div class="experience-company">四川省 "挑战杯"创业计划竞赛 银奖</div>
+                            <div class="experience-position">核心成员 | 视觉设计与交互</div>
+                        </div>
+                        <div class="experience-date">2022.01 - 2022.08</div>
+                    </div>
+                    <div class="experience-description">
+                        <ul>
+                            <li>负责<strong>交互原型、品牌形象、网页及数据可视化设计</strong>，提升用户体验与界面一致性。</li>
+                            <li>改进<strong>平台交互逻辑与视觉呈现</strong>，提高可用性与信息传达效率。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 工作经历 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="lang-content zh active">💼 工作经历</span>
+                    <span class="lang-content en">💼 Work Experience</span>
+                </h2>
+                <div class="experience-item work-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">建筑实习生</div>
+                            <div class="experience-company">家琨建筑设计事务所</div>
+                            <div class="experience-position">四川成都</div>
+                        </div>
+                        <div class="experience-date">2024.02 - 2024.05</div>
+                    </div>
+                    <div class="experience-description">
+                        <ul>
+                            <li><strong>多尺度项目实践：</strong>参与包括景观设计、小体量建筑设计、大体量建筑设计及既有建筑更新改造等<strong>4个不同规模项目</strong>，深入理解不同尺度的设计逻辑。</li>
+                            <li><strong>设计与模型制作：</strong>运用Adobe 系列软件完成效果图渲染绘制、分析图绘制；运用Rhino、SketchUp建模；参与实体模型制作，有效帮助提升方案表达表现力。</li>
+                            <li><strong>展览与活动支持：</strong>帮助开展 <em>玉林颂·绘造社"就在路边"</em> 展览布展，文创商品运营，活动现场管理工作等，获策展实践经验。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 在校经历 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="lang-content zh active">🏫 在校经历</span>
+                    <span class="lang-content en">🏫 Campus Experience</span>
+                </h2>
+                <div class="experience-item school-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">副书记</div>
+                            <div class="experience-company">四川大学 建筑与环境学院团委</div>
+                            <div class="experience-position">四川成都</div>
+                        </div>
+                        <div class="experience-date">2021.06 - 2022.06</div>
+                    </div>
+                    <div class="experience-description">
+                        <ul>
+                            <li><strong>新媒体运营与体系构建：</strong>搭建多级传播矩阵，推动公众号品牌升级；登顶校级月度影响力<strong>榜首4次</strong>，TOP10热文全校占比过半多次；累计发布<strong>图文600+</strong>篇，<strong>阅读量48.3万+</strong>，<strong>分享3万+</strong>。</li>
+                            <li><strong>活动策划与执行：</strong>统筹百人团队全流程执行3场大型活动，累计<strong>参与2000+人次</strong>。</li>
+                            <li><strong>调研与意见处理：</strong>创建<strong>线上反馈平台</strong>处理数百条建议；开展8次月度调研，样本<strong>3000+</strong>。</li>
+                            <li><strong>团队建设管理：</strong>优化管理制度与流程，助力组织获评<em>十佳学生会、五四红旗团委</em>等荣誉。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="experience-item school-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">宣传部部长</div>
+                            <div class="experience-company">四川大学 建筑与环境学院团委</div>
+                            <div class="experience-position">四川成都</div>
+                        </div>
+                        <div class="experience-date">2020.05 - 2021.06</div>
+                    </div>
+                    <div class="experience-description">
+                        <ul>
+                            <li><strong>媒体运营与内容建设：</strong>主导<strong>选题策划、新闻采编、视觉设计及活动传播</strong>全流程，发布<strong>574篇</strong>图文（<strong>阅读136K+，分享8K+</strong>），内容被校级转载<strong>14次</strong>，推动账号关注增至<strong>7K+</strong>。</li>
+                            <li><strong>品牌建设：</strong>账号两度入围校级影响力TOP2，4次WCI学院前十，获评<em> 十佳团学新媒体</em> 。</li>
+                            <li><strong>团队管理：</strong>建立<strong>5项标准化流程</strong>，开展<strong>8场培训</strong>提升部门效率。 个人获评 <em>十佳平面设计、十佳新媒体编辑 </em>等奖项。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 专业技能 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="lang-content zh active">🛠️ 专业技能</span>
+                    <span class="lang-content en">🛠️ Technical Skills</span>
+                </h2>
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <div class="skill-category-title">Adobe</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Photoshop</span>
+                            <span class="skill-tag">Illustrator</span>
+                            <span class="skill-tag">InDesign</span>
+                            <span class="skill-tag">Premier</span>
+                            <span class="skill-tag">Audition</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">建模</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Rhinoceros</span>
+                            <span class="skill-tag">Grasshopper</span>
+                            <span class="skill-tag">SketchUp</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">GIS</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">QGIS</span>
+                            <span class="skill-tag">ArcGIS Pro</span>
+                            <span class="skill-tag">sDNA</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">数据</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">SQL</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">Autodesk</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">CAD</span>
+                            <span class="skill-tag">Revit</span>
+                            <span class="skill-tag">CFD</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">渲染</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Lumion</span>
+                            <span class="skill-tag">Enscape</span>
+                            <span class="skill-tag">V-ray</span>
+                            <span class="skill-tag">D5 Render</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 语言能力 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="lang-content zh active">🌐 语言能力</span>
+                    <span class="lang-content en">🌐 Language</span>
+                </h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-name">
+                            <span class="lang-content zh active">中文（普通话）</span>
+                            <span class="lang-content en">Mandarin</span>
+                        </span>
+                        <span class="info-level">
+                            <span class="lang-content zh active">母语</span>
+                            <span class="lang-content en">Native</span>
+                        </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-name">
+                            <span class="lang-content zh active">英语</span>
+                            <span class="lang-content en">English</span>
+                        </span>
+                        <span class="info-level">
+                            <span class="lang-content zh active">可作为工作语言</span>
+                            <span class="lang-content en">Working Proficiency</span>
+                        </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-name">
+                            <span class="lang-content zh active">粤语</span>
+                            <span class="lang-content en">Cantonese</span>
+                        </span>
+                        <span class="info-level">
+                            <span class="lang-content zh active">初步</span>
+                            <span class="lang-content en">Starter</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 证书 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="lang-content zh active">📜 证书</span>
+                    <span class="lang-content en">📜 Certificates</span>
+                </h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-name">
+                            <span class="lang-content zh active">雅思 (IELTS)</span>
+                            <span class="lang-content en">IELTS</span>
+                        </span>
+                        <span class="info-level">7.5</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-name">
+                            <span class="lang-content zh active">英语六级 (CET-6)</span>
+                            <span class="lang-content en">CET - 6</span>
+                        </span>
+                        <span class="info-level">616</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-name">
+                            <span class="lang-content zh active">计算机二级</span>
+                            <span class="lang-content en">NCRE - 2</span>
+                        </span>
+                        <span class="info-level">MS Office</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 奖项荣誉 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="lang-content zh active">🏆 奖项荣誉</span>
+                    <span class="lang-content en">🏆 Honors & Awards</span>
+                </h2>
+                <div class="awards-grid">
+                    <div class="award-item">
+                        <div class="award-title">
+                            <span class="lang-content zh active">深圳市大鹏新区坝光片区城市设计竞赛 金奖</span>
+                            <span class="lang-content en">Shenzhen Dapeng District Urban Design Competition - Gold Award</span>
+                        </div>
+                        <div class="award-date">2024.07</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">
+                            <span class="lang-content zh active">米兰设计周中国高校设计学科优秀作品展 一等奖</span>
+                            <span class="lang-content en">Milan Design Week - Excellent Works Exhibition for Chinese Universities - First Prize</span>
+                        </div>
+                        <div class="award-date">2022.06</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">
+                            <span class="lang-content zh active">四川省"挑战杯"大学生创业计划竞赛 银奖</span>
+                            <span class="lang-content en">"Challenge Cup" Sichuan Province College Students Business Plan Competition - Silver Award</span>
+                        </div>
+                        <div class="award-date">2022.06</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">
+                            <span class="lang-content zh active">第二届"博略杯"四川大学创意策划挑战赛 亚军</span>
+                            <span class="lang-content en">2nd "Bolue Cup" Sichuan University Creative Planning Challenge - Runner-up</span>
+                        </div>
+                        <div class="award-date">2021.09</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">
+                            <span class="lang-content zh active">2020至2021年度本专科生国家奖学金</span>
+                            <span class="lang-content en">National Scholarship for Undergraduate Students</span>
+                        </div>
+                        <div class="award-date">2021.12</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">
+                            <span class="lang-content zh active">全国大学生英语竞赛 一等奖</span>
+                            <span class="lang-content en">National College English Competition - First Prize</span>
+                        </div>
+                        <div class="award-date">2021.05</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">
+                            <span class="lang-content zh active">2020发展中国家建筑设计大展 铜奖</span>
+                            <span class="lang-content en">Exhibition of Architectural Design in Developing Countries 2020 - Bronze Medal</span>
+                        </div>
+                        <div class="award-date">2021.03</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">
+                            <span class="lang-content zh active">四川大学"挑战杯"大学生创业计划竞赛 二等奖</span>
+                            <span class="lang-content en">'Challenge Cup' Sichuan University Business Plan Competition - Second Prize</span>
+                        </div>
+                        <div class="award-date">2022.04 / 2024.04</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">
+                            <span class="lang-content zh active">四川大学"挑战杯"大学生课外学术科技作品竞赛 三等奖</span>
+                            <span class="lang-content en">'Challenge Cup' Sichuan University Academic Science and Technology Works Competition - Third Prize</span>
+                        </div>
+                        <div class="award-date">2021.05</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">
+                            <span class="lang-content zh active">四川大学"互联网+"大学生创新创业大赛 三等奖</span>
+                            <span class="lang-content en">Sichuan University "Internet +" College Student Innovation and Entrepreneurship Competition - Third Prize</span>
+                        </div>
+                        <div class="award-date">2021.08 / 2023.08</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 下载区域 -->
+        <div class="download-section">
+            <h3 style="margin-bottom: 1rem; color: #2c3e50; font-weight: 600;">
+                <span class="lang-content zh active">完整简历下载</span>
+                <span class="lang-content en">Download Full Resume</span>
+            </h3>
+            <a href="resume_test/通用版中文.pdf" target="_blank" class="download-btn">
+                <span class="lang-content zh active">📄 下载PDF版简历</span>
+                <span class="lang-content en">📄 Download PDF Resume</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function switchLanguage(lang) {
+            // 更新按钮状态
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // 隐藏所有语言内容
+            document.querySelectorAll('.lang-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // 显示选中语言的内容
+            document.querySelectorAll(`.lang-content.${lang}`).forEach(content => {
+                content.classList.add('active');
+            });
+
+            // 更新页面语言属性
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        }
+    </script>
+</body>
+</html> 

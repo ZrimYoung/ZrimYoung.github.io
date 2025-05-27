@@ -3,15 +3,555 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>部署测试 - zrim.me</title>
+    <title>
+        <span class="lang-content zh active">杨哲熠 - 个人网站</span>
+        <span class="lang-content en">Yang Zheyi - Personal Website</span>
+    </title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f8f9fa; text-align: center; margin-top: 10%; }
-        h1 { color: #2d8cf0; }
-        p { color: #333; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: #fafafa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* 导航栏 - 简化设计 */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2c3e50;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #7f8c8d;
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #2c3e50;
+        }
+
+        /* 语言切换按钮 */
+        .lang-switch {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 0.25rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .lang-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            background: transparent;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #7f8c8d;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: #2c3e50;
+        }
+
+        /* 隐藏非当前语言的内容 */
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+
+        /* 主要内容区域 */
+        .hero {
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #34495e;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #2c3e50;
+            border-color: #2c3e50;
+        }
+
+        .btn-secondary:hover {
+            background: #2c3e50;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* 内容区域 */
+        .content-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: -1px;
+        }
+
+        /* 关于我部分 */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #5a6c7d;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* 联系方式部分 */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 50%;
+        }
+
+        .contact-info h4 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-info p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .contact-info a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .nav-right {
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 4rem 1rem 2rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .content-section {
+                padding: 0 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>欢迎来到 zrim.me！</h1>
-    <p>GitHub Pages 部署成功！</p>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="lang-content zh active">杨哲熠</span>
+                <span class="lang-content en">Yang Zheyi</span>
+            </div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">
+                        <span class="lang-content zh active">首页</span>
+                        <span class="lang-content en">Home</span>
+                    </a></li>
+                    <li><a href="resume.html">
+                        <span class="lang-content zh active">简历</span>
+                        <span class="lang-content en">Resume</span>
+                    </a></li>
+                </ul>
+                <div class="lang-switch">
+                    <button class="lang-btn active" onclick="switchLanguage('zh')">中文</button>
+                    <button class="lang-btn" onclick="switchLanguage('en')">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="hero">
+        <h1 class="hero-title">
+            <span class="lang-content zh active">杨哲熠</span>
+            <span class="lang-content en">Yang Zheyi</span>
+        </h1>
+        <p class="hero-subtitle">
+            <span class="lang-content zh active">城市设计师 & 建筑师</span>
+            <span class="lang-content en">Urban Designer & Architect</span>
+        </p>
+        <p class="hero-description">
+            <span class="lang-content zh active">
+                专注于城市设计与建筑实践，结合数据分析与空间研究，致力于创造可持续的城市环境。
+                目前在香港大学攻读城市设计硕士学位。
+            </span>
+            <span class="lang-content en">
+                Focused on urban design and architectural practice, combining data analysis with spatial research 
+                to create sustainable urban environments. Currently pursuing a Master of Urban Design at HKU.
+            </span>
+        </p>
+        <div class="cta-buttons">
+            <a href="resume.html" class="btn btn-primary">
+                <span class="lang-content zh active">查看简历</span>
+                <span class="lang-content en">View Resume</span>
+            </a>
+            <a href="https://www.behance.net/zrim_young" target="_blank" class="btn btn-secondary">
+                <span class="lang-content zh active">作品集</span>
+                <span class="lang-content en">Portfolio</span>
+            </a>
+        </div>
+    </main>
+
+    <!-- 内容区域 -->
+    <div class="content-section">
+        <!-- 关于我 -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="lang-content zh active">关于我</span>
+                <span class="lang-content en">About Me</span>
+            </h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="lang-content zh active">
+                        <p>我是一名充满热情的城市设计师和建筑师，目前在香港大学攻读城市设计硕士学位。我的研究兴趣集中在城市空间分析、交通安全与建成环境的关系，以及数据驱动的城市规划方法。</p>
+                        <p>在学术研究中，我运用深度学习、空间分析和统计建模等技术，探索城市环境对人类行为的影响。同时，我也积极参与实际项目，从建筑设计到城市规划，从品牌视觉到新媒体运营，力求在理论与实践之间找到平衡。</p>
+                        <p>我相信好的设计能够改善人们的生活质量，而数据科学为我们提供了更精准的洞察。我致力于将这两者结合，为创造更美好的城市环境贡献力量。</p>
+                    </div>
+                    <div class="lang-content en">
+                        <p>I am a passionate urban designer and architect currently pursuing a Master of Urban Design at the University of Hong Kong. My research interests focus on urban spatial analysis, the relationship between traffic safety and built environment, and data-driven urban planning approaches.</p>
+                        <p>In my academic research, I employ deep learning, spatial analysis, and statistical modeling to explore how urban environments influence human behavior. Meanwhile, I actively participate in practical projects, ranging from architectural design to urban planning, from brand visuals to new media operations, seeking balance between theory and practice.</p>
+                        <p>I believe good design can improve people's quality of life, while data science provides us with more precise insights. I am committed to combining these two aspects to contribute to creating better urban environments.</p>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">
+                            <span class="lang-content zh active">获奖项目</span>
+                            <span class="lang-content en">Award-winning Projects</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3万+</div>
+                        <div class="stat-label">
+                            <span class="lang-content zh active">数据处理量</span>
+                            <span class="lang-content en">Data Points Processed</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">48万+</div>
+                        <div class="stat-label">
+                            <span class="lang-content zh active">内容阅读量</span>
+                            <span class="lang-content en">Content Views</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2000+</div>
+                        <div class="stat-label">
+                            <span class="lang-content zh active">活动参与人次</span>
+                            <span class="lang-content en">Event Participants</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系方式 -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="lang-content zh active">联系我</span>
+                <span class="lang-content en">Get In Touch</span>
+            </h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-info">
+                        <h4>
+                            <span class="lang-content zh active">邮箱</span>
+                            <span class="lang-content en">Email</span>
+                        </h4>
+                        <p><a href="mailto:zheyi@connect.hku.hk">zheyi@connect.hku.hk</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🔗</div>
+                    <div class="contact-info">
+                        <h4>
+                            <span class="lang-content zh active">作品集</span>
+                            <span class="lang-content en">Portfolio</span>
+                        </h4>
+                        <p><a href="https://www.behance.net/zrim_young" target="_blank">Behance</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📚</div>
+                    <div class="contact-info">
+                        <h4>
+                            <span class="lang-content zh active">作品文档</span>
+                            <span class="lang-content en">Portfolio Document</span>
+                        </h4>
+                        <p><a href="https://issuu.com/zrim/docs/stories_of_spaces" target="_blank">Issuu</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-info">
+                        <h4>
+                            <span class="lang-content zh active">位置</span>
+                            <span class="lang-content en">Location</span>
+                        </h4>
+                        <p>
+                            <span class="lang-content zh active">香港特别行政区</span>
+                            <span class="lang-content en">Hong Kong S.A.R.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function switchLanguage(lang) {
+            // 更新按钮状态
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // 隐藏所有语言内容
+            document.querySelectorAll('.lang-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // 显示选中语言的内容
+            document.querySelectorAll(`.lang-content.${lang}`).forEach(content => {
+                content.classList.add('active');
+            });
+
+            // 更新页面语言属性
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        }
+    </script>
 </body>
-</html> 
+</html>
